@@ -1,0 +1,362 @@
+:root{
+    --color-primary: #212121; /* Hitam gelap untuk teks utama/background gelap */
+    --color-secondary: #f0f0f0; /* Putih/abu-abu terang untuk background utama */
+    --color-text: #424242; /* Abu-abu sedang untuk teks normal */
+    --color-accent: #616161; /* Abu-abu tua untuk highlight/hover */
+    --color-light-text: #ffffff; /* Teks putih untuk background gelap */
+
+    --font-primary: 'Arial', sans-serif;
+    --spacing-lg: 3rem;
+    --spacing-md: 1.5rem;
+    --spacing-sm: 0.5rem;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: var(--font-primary);
+    line-height: 1.6;
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+}
+
+/* --- Navigation Bar --- */
+.navbar{
+    background-color: var(--color-primary);
+    padding: var(--spacing-md) var(--spacing-lg);
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo{
+    color: var(--color-light-text);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links{
+    list-style: none;
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.nav-links li{
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a{
+    color: var(--color-light-text);
+    text-decoration: none;
+    padding: var(--spacing-sm) 0;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--color-accent);
+}
+
+.nav-links svg, .sidebar svg{
+    fill: var(--color-light-text);
+}
+
+.nav-links .menu-button{
+    display: none;
+}
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    padding: var(--spacing-md) 0;
+    z-index: 999;
+    background-color: var(--color-primary);
+    backdrop-filter: blur(10px);
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    list-style: none;
+    gap: 0;
+}
+
+.sidebar li{
+    padding: 0 var(--spacing-md);
+    width: 100%;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar li:hover{
+    background-color: var(--color-accent);
+}
+
+.sidebar a{
+    height: auto;
+    color: var(--color-light-text);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.sidebar-underlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* width: 100%; */
+    width: calc(100vw - 266px);
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    display: none;
+    z-index: 998;
+}
+
+.sidebar-underlay.show{
+    display: block;
+}
+
+/* --- Hero Section (Beranda) --- */
+.hero-section {
+    min-height: calc(100vh - 8rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.hero-section h2 {
+    font-size: 1.5rem;
+    color: var(--color-text);
+    font-weight: normal;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 2px solid var(--color-accent); /* Garis pemisah semi-professional */
+    display: inline-block; /* Agar garis hanya selebar teks */
+}
+/* Sosial Media Links */
+.social-links{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 var(--spacing-md) var(--spacing-md);
+    gap: 1rem;
+}
+
+.social-links a {
+    background-color: var(--color-primary);
+    fill: var(--color-secondary);
+    padding: 0.75em;
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.social-links a svg{
+    height: 24px;
+}
+
+.social-links a::before{
+    content: attr(data-social);
+    position: absolute;
+    background-color: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    padding: 0.5em 1em;
+    border-radius: 100px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-30px) rotate(25deg);
+    opacity: 0;
+    transition: 200ms cubic-bezier(0.5, 0, 0, 1.5);
+}
+
+.social-links a:hover {
+    fill: var(--accent-color);
+}
+
+.social-links a::after{
+    content: "";
+    height: 0;
+    width: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 10px solid var(--accent-color); /*buat segitiga*/
+    transform: translateY(0) rotate(25deg);
+    opacity: 0;
+    transition: 200ms cubic-bezier(0.5, 0, 0, 1.5);
+}
+
+.social-links a:hover::before{
+    transform: translateY(-50px) rotate(0deg);
+    opacity: 1;
+}
+
+.social-links a:hover::after{
+    transform: translateY(-45px) rotate(0deg);
+    opacity: 1;
+}
+
+/* Message untuk discord */
+
+#message{
+    background-color: var(--color-primary);
+    border: 2px solid var(--color-accent);
+    padding: var(--spacing-sm) var(--spacing-md);
+    position: fixed;
+    left: var(--spacing-sm);
+    bottom: var(--spacing-sm);
+    border-radius: 5px;
+}
+
+#message p{
+    color: var(--color-light-text);
+}
+
+.hidden{
+    display: none;
+}
+
+.show{
+    display: inline-block;
+}
+
+/* About me */
+
+.about{
+    display: none;
+}
+
+.about table{
+    margin-top: var(--spacing-md);
+    margin-inline: auto;
+    width: calc(60% + 1rem);
+    border-collapse: collapse;
+}
+
+.about th, .about td{
+    border: 2px solid var(--color-accent);
+    padding: .5em;
+    text-align: left;
+    color: var(--color-text);
+}
+
+.about tr:first-child th{
+    text-align: center;
+}
+
+/* Gallery */
+
+.gallery{
+    display: none;
+    margin-top: var(--spacing-md);
+}
+
+.gallery.show, .about.show{
+    display: block;
+}
+
+.gallery h2{
+    color: var(--color-primary);
+    font-weight: 600;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.items{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.item{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 200px;
+    aspect-ratio: 4 / 3;
+}
+
+.item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 2px solid var(--color-accent);
+    border-radius: 10px;
+}
+
+/* --- Footer --- */
+.footer{
+    background-color: var(--color-primary);
+    color: var(--color-light-text);
+    text-align: center;
+    margin-top: auto;
+    padding: var(--spacing-md) 0;
+    font-size: 0.9rem;
+}
+
+/* --- Mobile Responsive --- */
+@media (max-width: 768px){
+    /* Navbar */
+    .nav-links li{
+        display: none;
+    }
+    
+    .nav-links .menu-button{
+        display: flex;
+    }
+    
+    .about table{
+        width: 100%;
+    }
+
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-section h2 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 500px){
+    .bio-summary{
+        text-align: justify;
+    }
+
+    .items{
+        flex-direction: column;
+    }
+
+    .item{
+        margin-inline: auto;
+    }
+}
